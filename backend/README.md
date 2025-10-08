@@ -26,7 +26,7 @@ uv run python manage.py createsuperuser
 
 5. Start server:
 ```bash
-uv run python manage.py runserver
+uv run python manage.py runserver 8001
 ```
 
 ## Architecture
@@ -67,13 +67,13 @@ class Query(graphene.ObjectType):
 
 ## Django Admin
 
-Accessible at http://localhost:8000/admin/
+Accessible at http://localhost:8001/admin/
 
 Uses django-unfold for a modern admin interface.
 
 ## GraphQL Endpoint
 
-- URL: http://localhost:8000/graphql/
+- URL: http://localhost:8001/graphql/
 - GraphiQL Interface: Enabled in development
 
 ## Environment Variables

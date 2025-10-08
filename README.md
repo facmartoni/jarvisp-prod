@@ -55,12 +55,12 @@ uv run python manage.py createsuperuser
 
 5. Start development server:
 ```bash
-uv run python manage.py runserver
+uv run python manage.py runserver 8001
 ```
 
-Backend will be available at: http://localhost:8000
-- GraphQL endpoint: http://localhost:8000/graphql/
-- Admin panel: http://localhost:8000/admin/
+Backend will be available at: http://localhost:8001
+- GraphQL endpoint: http://localhost:8001/graphql/
+- Admin panel: http://localhost:8001/admin/
 
 ### Frontend Setup
 
@@ -100,7 +100,7 @@ The backend follows a service-oriented architecture instead of traditional MVC:
 
 Terminal 1 (Backend):
 ```bash
-cd backend && uv run python manage.py runserver
+cd backend && uv run python manage.py runserver 8001
 ```
 
 Terminal 2 (Frontend):
@@ -110,7 +110,7 @@ cd frontend && pnpm dev
 
 ### Testing GraphQL
 
-Visit http://localhost:8000/graphql/ to use GraphiQL interface.
+Visit http://localhost:8001/graphql/ to use GraphiQL interface.
 
 Example query:
 ```graphql
