@@ -1,0 +1,245 @@
+/* Robot Container */
+.robot-container {
+  margin: 40px 0;
+}
+
+.robot {
+  position: relative;
+  width: 200px;
+  height: 250px;
+  margin: 0 auto;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+}
+
+/* Signal Waves */
+.signal {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 80px;
+}
+
+.wave {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border-radius: 8px;
+  opacity: 0;
+}
+
+.wave1 {
+  width: 50px;
+  height: 8px;
+  top: 45px;
+}
+
+.wave2 {
+  width: 70px;
+  height: 8px;
+  top: 30px;
+}
+
+.wave3 {
+  width: 90px;
+  height: 8px;
+  top: 15px;
+}
+
+/* Antenna */
+.antenna {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 25px;
+  background: #ffffff;
+}
+
+.antenna::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+/* Head */
+.head {
+  position: absolute;
+  top: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 140px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+/* Ears */
+.ear {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 25px;
+  height: 45px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+.ear.left {
+  left: -30px;
+}
+
+.ear.right {
+  right: -30px;
+}
+
+/* Face Mask */
+.face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 50px;
+  background: #1a1a1a;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+/* Eyes */
+.eyes {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.eye {
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.eyelid {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1a1a1a;
+  transition: top 0.2s ease;
+}
+
+/* Animation States */
+.robot.loading .wave1 {
+  animation: pulse 1.5s infinite;
+}
+
+.robot.loading .wave2 {
+  animation: pulse 1.5s infinite 0.2s;
+}
+
+.robot.loading .wave3 {
+  animation: pulse 1.5s infinite 0.4s;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.robot.blinking .eyelid {
+  animation: blink 3s infinite;
+}
+
+@keyframes blink {
+  0%, 90%, 100% { top: -100%; }
+  95% { top: 0%; }
+}
+
+.robot.winking .eye.left .eyelid {
+  animation: wink 4s infinite;
+}
+
+@keyframes wink {
+  0%, 40%, 60%, 100% { top: -100%; }
+  45%, 55% { top: 0%; }
+}
+
+.robot.scanning .eyes {
+  animation: scan 2s infinite ease-in-out;
+}
+
+@keyframes scan {
+  0%, 100% { transform: translate(-50%, -50%) translateX(0); }
+  25% { transform: translate(-50%, -50%) translateX(-10px); }
+  75% { transform: translate(-50%, -50%) translateX(10px); }
+}
+
+.robot.dancing {
+  animation: dance 0.5s infinite ease-in-out;
+}
+
+.robot.dancing .ear.left {
+  animation: earDance 0.5s infinite ease-in-out;
+}
+
+.robot.dancing .ear.right {
+  animation: earDance 0.5s infinite ease-in-out 0.25s;
+}
+
+@keyframes dance {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(-2deg); }
+  75% { transform: translateY(-5px) rotate(2deg); }
+}
+
+@keyframes earDance {
+  0%, 100% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-50%) scale(1.2); }
+}
+
+.robot.alert .antenna::before {
+  animation: alertPulse 0.5s infinite;
+  background: #ff6b6b;
+}
+
+.robot.alert .wave1,
+.robot.alert .wave2,
+.robot.alert .wave3 {
+  background: #ff6b6b;
+  animation: alertWave 0.5s infinite;
+}
+
+@keyframes alertPulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.3); }
+}
+
+@keyframes alertWave {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .robot {
+    transform: scale(0.8);
+  }
+}
+
