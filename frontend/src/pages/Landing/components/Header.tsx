@@ -16,13 +16,13 @@ function Header() {
         {/* Navigation menu */}
         <nav className="hidden md:flex items-center gap-8">
           <a href="#pricing" className="text-[0.95rem] font-medium text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">
-            Pricing
+            Probar
           </a>
           <a href="#press-kit" className="text-[0.95rem] font-medium text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">
-            Press Kit
+            Contactanos
           </a>
           <a href="#support" className="text-[0.95rem] font-medium text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">
-            Support
+            Precios
           </a>
         </nav>
 
