@@ -5,9 +5,10 @@ type AnimationType = 'loading' | 'blinking' | 'winking' | 'scanning' | 'dancing'
 
 interface RobotProps {
   animation?: AnimationType
+  className?: string
 }
 
-function Robot({ animation = 'cycle' }: RobotProps) {
+function Robot({ animation = 'cycle', className = '' }: RobotProps) {
   const robotRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -37,7 +38,7 @@ function Robot({ animation = 'cycle' }: RobotProps) {
   }, [animation])
 
   return (
-    <div className="robot-container">
+    <div className={`robot-container ${className}`}>
       <div className="robot" ref={robotRef}>
         <div className="signal">
           <div className="wave wave3"></div>
