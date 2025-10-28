@@ -10,6 +10,7 @@ class CustomerAdmin(ModelAdmin):
     list_filter = ["company", "created_at", "last_interaction"]
     search_fields = ["name", "phone", "email", "external_id", "company__name"]
     readonly_fields = ["created_at", "updated_at"]
+    autocomplete_fields = ["company"]
     fieldsets = (
         ("Company", {
             "fields": ("company",)
