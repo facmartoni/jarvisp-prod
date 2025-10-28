@@ -1,2 +1,34 @@
 .DS_Store
 .vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Environment variables
+.env
+.env.local
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+/static/
+/media/
+
+# IDEs
+.idea/
+*.swp
+*.swo
+*~

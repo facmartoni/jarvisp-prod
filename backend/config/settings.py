@@ -153,3 +153,7 @@ GRAPHENE = {
     'SCHEMA': 'api.schema.schema',
     'MIDDLEWARE': [],
 }
+
+# Encryption settings
+# Generate key with: python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())'
+ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY', '')
