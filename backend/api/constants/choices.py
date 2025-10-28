@@ -5,6 +5,14 @@ Model field choices and enums.
 from django.db import models
 
 
+class MessageRole(models.TextChoices):
+    """Role choices for Message model."""
+    USER = "user", "User"
+    ASSISTANT = "assistant", "Assistant (Bot)"
+    AGENT = "agent", "Agent (Human)"
+    SYSTEM = "system", "System"
+
+
 class ConversationStatus(models.TextChoices):
     """
     Status choices for Conversation model in a customer service AI bot application.
