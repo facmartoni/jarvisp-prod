@@ -1,5 +1,4 @@
-from .choices import ConversationStatus, MessageRole
+from .choices import BillingEventType, ConversationStatus, MessageRole
 from .timezones import LATAM_TIMEZONES
 
-__all__ = ["ConversationStatus", "MessageRole", "LATAM_TIMEZONES"]
-
+__all__ = ["BillingEventType", "ConversationStatus", "MessageRole", "LATAM_TIMEZONES"]

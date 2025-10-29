@@ -5,6 +5,12 @@ Model field choices and enums.
 from django.db import models
 
 
+class BillingEventType(models.TextChoices):
+    """Event type choices for BillingEvent model."""
+    SUBSCRIPTION = "subscription", "Subscription"
+    OVERAGE = "overage", "Overage"
+
+
 class MessageRole(models.TextChoices):
     """Role choices for Message model."""
     USER = "user", "User"
