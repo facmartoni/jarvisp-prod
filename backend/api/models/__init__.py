@@ -2,6 +2,7 @@ from .agent_handoff import AgentHandoff
 from .company import Company
 from .conversation import Conversation
 from .customer import Customer
+from .feedback import Feedback
 from .ispcube_integration import ISPCubeIntegration
 from .knowledge_base import KnowledgeBase
 from .message import Message
@@ -13,6 +14,7 @@ __all__ = [
     "Company",
     "Conversation",
     "Customer",
+    "Feedback",
     "ISPCubeIntegration",
     "KnowledgeBase",
     "Message",
