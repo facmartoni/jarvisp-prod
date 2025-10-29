@@ -1,3 +1,4 @@
+from .agent_handoff import AgentHandoff
 from .company import Company
 from .conversation import Conversation
 from .customer import Customer
@@ -7,6 +8,7 @@ from .message import Message
 from .tool_call_log import ToolCallLog
 
 __all__ = [
+    "AgentHandoff",
     "Company",
     "Conversation",
     "Customer",

@@ -1,3 +1,4 @@
+from .agent_handoff import AgentHandoffAdmin
 from .company import CompanyAdmin
 from .conversation import ConversationAdmin
 from .customer import CustomerAdmin
@@ -7,6 +8,7 @@ from .message import MessageAdmin
 from .tool_call_log import ToolCallLogAdmin
 
 __all__ = [
+    "AgentHandoffAdmin",
     "CompanyAdmin",
     "ConversationAdmin",
     "CustomerAdmin",
