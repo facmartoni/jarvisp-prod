@@ -9,7 +9,7 @@ class Customer(models.Model):
         on_delete=models.PROTECT, # When a company is deleted, we don't want to delete the customers
         related_name="customers",
     )
-    external_id = models.CharField(max_length=255, help_text="External system identifier")
+    external_id = models.CharField(max_length=255, blank=True, null=True, help_text="External system identifier")
     phone = E164PhoneNumberField(help_text="Phone number in E.164 format (e.g., +5491112345678)")
     name = models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)

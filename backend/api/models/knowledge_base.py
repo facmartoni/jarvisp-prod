@@ -1,3 +1,5 @@
+from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.indexes import GinIndex
 from django.db import models
 
 
@@ -14,7 +16,8 @@ class KnowledgeBase(models.Model):
         blank=True,
         help_text="Category for organization (e.g., 'billing', 'technical', 'general')"
     )
-    keywords = models.JSONField(
+    keywords = ArrayField(
+        models.CharField(max_length=100),
         default=list,
         blank=True,
         help_text="Keywords for search and matching (array of strings)"
@@ -30,6 +33,7 @@ class KnowledgeBase(models.Model):
         indexes = [
             models.Index(fields=["company", "is_active"]),
             models.Index(fields=["company", "category"]),
+            GinIndex(fields=["keywords"], name="kb_keywords_gin_idx"),
         ]
 
     def __str__(self) -> str:

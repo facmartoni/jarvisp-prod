@@ -1,3 +1,5 @@
+from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.indexes import GinIndex
 from django.db import models
 
 
@@ -9,7 +11,8 @@ class Template(models.Model):
     )
     name = models.CharField(max_length=255, help_text="Template name for identification")
     content = models.TextField(help_text="Template content/message")
-    trigger_keywords = models.JSONField(
+    trigger_keywords = ArrayField(
+        models.CharField(max_length=100),
         default=list,
         blank=True,
         help_text="Keywords that trigger this template (array of strings)"
@@ -24,6 +27,7 @@ class Template(models.Model):
         ordering = ["-usage_count", "name"]
         indexes = [
             models.Index(fields=["company", "usage_count"]),
+            GinIndex(fields=["trigger_keywords"], name="template_keywords_gin_idx"),
         ]
         unique_together = [["company", "name"]]
 
