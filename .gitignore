@@ -26,6 +26,8 @@ db.sqlite3
 db.sqlite3-journal
 /static/
 /media/
+models_diagram*.png
+models_diagram*.svg
 
 # IDEs
 .idea/
