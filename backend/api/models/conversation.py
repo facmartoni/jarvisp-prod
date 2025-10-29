@@ -31,9 +31,10 @@ class Conversation(models.Model):
         verbose_name_plural = "Conversations"
         ordering = ["-last_message_at", "-started_at"]
         indexes = [
-            models.Index(fields=["company", "customer"]),
+            models.Index(fields=["company", "customer", "is_active"]),
+            models.Index(fields=["company", "last_message_at"]),
+            models.Index(fields=["customer", "created_at"]),
             models.Index(fields=["company", "status"]),
-            models.Index(fields=["is_active", "last_message_at"]),
         ]
 
     def __str__(self) -> str:
