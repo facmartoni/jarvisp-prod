@@ -5,6 +5,7 @@ from .customer import Customer
 from .ispcube_integration import ISPCubeIntegration
 from .knowledge_base import KnowledgeBase
 from .message import Message
+from .template import Template
 from .tool_call_log import ToolCallLog
 
 __all__ = [
@@ -15,5 +16,6 @@ __all__ = [
     "ISPCubeIntegration",
     "KnowledgeBase",
     "Message",
+    "Template",
     "ToolCallLog",
 ]
