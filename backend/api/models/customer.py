@@ -20,9 +20,8 @@ class Customer(models.Model):
         verbose_name = "Customer"
         verbose_name_plural = "Customers"
         ordering = ["-last_interaction", "-created_at"]
-        unique_together = [["company", "external_id"]]
+        unique_together = [["company", "external_id"], ["company", "phone"]]
         indexes = [
-            models.Index(fields=["company", "phone"]),
             models.Index(fields=["company", "email"]),
             models.Index(fields=["last_interaction"]),
         ]
