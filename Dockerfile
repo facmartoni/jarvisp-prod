@@ -25,8 +25,8 @@ COPY backend/ .
 RUN uv run python manage.py collectstatic --noinput
 
 # Expose port
-EXPOSE 8000
+EXPOSE 8080
 
 # Start server
-CMD uv run gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2
+CMD uv run gunicorn config.wsgi:application --bind 0.0.0.0:8080 --workers 2
 
