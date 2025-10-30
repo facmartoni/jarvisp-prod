@@ -164,6 +164,9 @@ GRAPHENE = {
 # Generate key with: python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())'
 ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY', '')
 
+# WhatsApp settings
+WHATSAPP_VERIFY_TOKEN = os.getenv('WHATSAPP_VERIFY_TOKEN', '')
+
 # Logging settings
 LOGGING = {
     'version': 1,
