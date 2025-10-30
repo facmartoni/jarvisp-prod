@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -123,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Argentina/Tucuman'
 
 USE_I18N = True
 
@@ -162,3 +163,44 @@ GRAPHENE = {
 # Encryption settings
 # Generate key with: python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())'
 ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY', '')
+
+# Logging settings
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'rich.logging.RichHandler',
+            'formatter': 'simple',
+            'rich_tracebacks': True,
+            'tracebacks_show_locals': True,
+            'log_time_format': '[%d/%m/%y %H:%M:%S]',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'api': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
