@@ -2,7 +2,6 @@ app = "jarvisp-prod"
 primary_region = "gru"
 
 [build]
-  dockerfile = "backend/Dockerfile"
 
 [deploy]
   release_command = "uv run python manage.py migrate"
