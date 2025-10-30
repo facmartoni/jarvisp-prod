@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from api.models.company import Company
 from api.utils.whatsapp_parser import parse_webhook_payload
+from services.conversation_service import handle_incoming_message
 
 logger = logging.getLogger(__name__)
 
@@ -53,6 +54,15 @@ def whatsapp_webhook(request):
                     )
                     request.company = company
                     logger.info(f"Company found: {company.name}")
+
+                    # Handle incoming message
+                    message = handle_incoming_message(
+                        company=company,
+                        from_number=parsed["from_number"],
+                        message_body=parsed["message_body"],
+                    )
+                    logger.info(f"Message handled successfully: {message.pk}")
+
                 except Company.DoesNotExist:
                     logger.error(
                         f"Company not found for phone_number_id: {parsed['phone_number_id']}"
