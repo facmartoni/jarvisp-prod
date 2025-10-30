@@ -5,6 +5,8 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
+from api.utils.whatsapp_parser import parse_webhook_payload
+
 logger = logging.getLogger(__name__)
 
 
@@ -33,6 +35,16 @@ def whatsapp_webhook(request):
         try:
             data = json.loads(request.body)
             logger.info(f"WhatsApp webhook received: {json.dumps(data, indent=2)}")
+            
+            # Parse the webhook payload
+            parsed = parse_webhook_payload(data)
+            if parsed:
+                logger.info(
+                    f"Parsed message - From: {parsed['from_number']}, "
+                    f"Body: {parsed['message_body']}, "
+                    f"ID: {parsed['message_id']}"
+                )
+            
             return JsonResponse({"status": "ok"}, status=200)
         except json.JSONDecodeError as e:
             logger.error(f"Invalid JSON received: {e}")
