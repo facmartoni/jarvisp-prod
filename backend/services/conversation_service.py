@@ -28,18 +28,21 @@ def handle_incoming_message(
         Message: The created message object
     """
     # Format phone number to E.164
+    # Add + prefix if not present for phonenumbers library
+    phone_to_parse = from_number if from_number.startswith('+') else f'+{from_number}'
+    
     try:
-        parsed = phonenumbers.parse(from_number, None)
+        parsed = phonenumbers.parse(phone_to_parse, None)
         if phonenumbers.is_valid_number(parsed):
             e164_phone = phonenumbers.format_number(
                 parsed, phonenumbers.PhoneNumberFormat.E164
             )
         else:
             logger.warning(f"Invalid phone number: {from_number}")
-            e164_phone = from_number
+            e164_phone = phone_to_parse
     except phonenumbers.NumberParseException:
         logger.warning(f"Failed to parse phone number: {from_number}")
-        e164_phone = from_number # TOCHANGE
+        e164_phone = phone_to_parse
 
     with transaction.atomic():
         # Get or create customer
