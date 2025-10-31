@@ -10,7 +10,7 @@ class CompanyConfigAdmin(ModelAdmin):
     list_filter = ["company"]
     search_fields = ["company__name", "system_prompt"]
     readonly_fields = ["created_at", "updated_at"]
-    
+
     fieldsets = [
         (
             "Company",

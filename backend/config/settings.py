@@ -32,7 +32,17 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
+# Allow ngrok domains for testing
+if DEBUG:
+    ALLOWED_HOSTS.append('.ngrok.app')
+    ALLOWED_HOSTS.append('.ngrok-free.app')
+
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if os.getenv('CSRF_TRUSTED_ORIGINS') else []
+
+# Allow ngrok CSRF for webhooks in testing
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS.append('https://*.ngrok.app')
+    CSRF_TRUSTED_ORIGINS.append('https://*.ngrok-free.app')
 
 
 # Application definition

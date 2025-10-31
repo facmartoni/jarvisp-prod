@@ -4,7 +4,6 @@ LLM Service for Gemini integration.
 
 import logging
 import os
-from typing import Any
 
 from google import genai
 from google.genai import types
@@ -40,7 +39,7 @@ def get_gemini_model():
     return client
 
 
-def format_messages_for_gemini(messages: list[Message]) -> list[dict[str, Any]]:
+def format_messages_for_gemini(messages: list[Message]) -> list[types.Content]:
     """
     Convert Message objects to Gemini API format.
 
@@ -48,7 +47,7 @@ def format_messages_for_gemini(messages: list[Message]) -> list[dict[str, Any]]:
         messages: List of Message objects
 
     Returns:
-        list[dict]: Messages formatted for Gemini API [{"role": "user/model", "parts": [text]}]
+        list[types.Content]: Messages formatted for Gemini API
     """
     formatted = []
 
@@ -65,17 +64,19 @@ def format_messages_for_gemini(messages: list[Message]) -> list[dict[str, Any]]:
         else:
             continue
 
-        formatted.append({
-            "role": gemini_role,
-            "parts": [message.content]
-        })
+        formatted.append(
+            types.Content(
+                role=gemini_role,
+                parts=[types.Part(text=message.content)]
+            )
+        )
 
     return formatted
 
 
 def generate_response(
     company: Company,
-    conversation_history: list[dict[str, Any]],
+    conversation_history: list[types.Content],
     user_message: str
 ) -> tuple[str, int]:
     """
@@ -101,10 +102,12 @@ def generate_response(
         client = get_gemini_model()
 
         # Build messages with history + new user message
-        messages = conversation_history + [{
-            "role": "user",
-            "parts": [user_message]
-        }]
+        messages = conversation_history + [
+            types.Content(
+                role="user",
+                parts=[types.Part(text=user_message)]
+            )
+        ]
 
         # Generate response
         response = client.models.generate_content(
