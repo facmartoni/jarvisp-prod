@@ -3,15 +3,17 @@ import logging
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
-from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from api.constants import MessageRole
 from api.models.company import Company
-from api.models.message import Message
 from api.utils.whatsapp_parser import parse_webhook_payload
 from api.utils.whatsapp_sender import send_message
-from services.conversation_service import handle_incoming_message
+from services.conversation_service import (
+    get_conversation_history,
+    handle_incoming_message,
+    save_assistant_message,
+)
+from services.llm_service import format_messages_for_gemini, generate_response
 
 logger = logging.getLogger(__name__)
 
@@ -67,8 +69,37 @@ def whatsapp_webhook(request):
                     )
                     logger.info(f"Message handled successfully: {user_message.pk}")
 
-                    # Send response back with same text
-                    response_text = parsed["message_body"]
+                    # Generate AI response
+                    try:
+                        # Get conversation history
+                        history = get_conversation_history(
+                            user_message.conversation, limit=20
+                        )
+
+                        # Format for Gemini (exclude the just-created user_message)
+                        formatted_history = format_messages_for_gemini(history[:-1])
+
+                        # Generate response
+                        response_text, tokens_used = generate_response(
+                            company=company,
+                            conversation_history=formatted_history,
+                            user_message=parsed["message_body"],
+                        )
+                        logger.info(
+                            f"AI response generated: {response_text[:100]} "
+                            f"(tokens: {tokens_used})"
+                        )
+
+                    except Exception as e:
+                        # Fallback message on LLM error
+                        logger.error(f"LLM generation error: {e}", exc_info=True)
+                        response_text = (
+                            "Disculpá, estoy teniendo problemas técnicos. "
+                            "Por favor, intentá de nuevo en unos minutos."
+                        )
+                        tokens_used = 0
+
+                    # Send response via WhatsApp
                     success = send_message(
                         phone_number_id=parsed["phone_number_id"],
                         to_number=parsed["from_number"],
@@ -77,23 +108,16 @@ def whatsapp_webhook(request):
 
                     if success:
                         # Save assistant message to database
-                        assistant_message = Message.objects.create(
+                        assistant_message = save_assistant_message(
                             conversation=user_message.conversation,
-                            role=MessageRole.ASSISTANT,
                             content=response_text,
+                            tokens_used=tokens_used,
                         )
-
-                        # Update conversation metadata
-                        conversation = user_message.conversation
-                        conversation.last_message_at = timezone.now()
-                        conversation.total_messages += 1
-                        conversation.save(
-                            update_fields=["last_message_at", "total_messages"]
-                        )
-
                         logger.info(
                             f"Assistant message sent and saved: {assistant_message.pk}"
                         )
+                    else:
+                        logger.error("Failed to send WhatsApp message")
 
                 except Company.DoesNotExist:
                     logger.error(

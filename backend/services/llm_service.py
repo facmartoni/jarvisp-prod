@@ -77,7 +77,7 @@ def generate_response(
     company: Company,
     conversation_history: list[dict[str, Any]],
     user_message: str
-) -> str:
+) -> tuple[str, int]:
     """
     Generate AI response using Gemini.
 
@@ -87,7 +87,7 @@ def generate_response(
         user_message: New user message to respond to
 
     Returns:
-        str: Generated response text
+        tuple[str, int]: Generated response text and tokens used
 
     Raises:
         ValueError: If API key is missing or config is invalid
@@ -121,7 +121,18 @@ def generate_response(
             logger.error("Empty response from Gemini API")
             raise RuntimeError("Failed to generate response: empty response")
 
-        return response.text
+        # Extract token usage
+        tokens_used = 0
+        if hasattr(response, 'usage_metadata'):
+            # Total tokens = prompt + response tokens
+            tokens_used = getattr(response.usage_metadata, 'total_token_count', 0)
+            logger.info(
+                f"Token usage - Total: {tokens_used}, "
+                f"Prompt: {getattr(response.usage_metadata, 'prompt_token_count', 0)}, "
+                f"Response: {getattr(response.usage_metadata, 'candidates_token_count', 0)}"
+            )
+
+        return response.text, tokens_used
 
     except ValueError as e:
         # API key missing or invalid config
