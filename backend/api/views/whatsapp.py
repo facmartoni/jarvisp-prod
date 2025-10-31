@@ -3,10 +3,14 @@ import logging
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
+from api.constants import MessageRole
 from api.models.company import Company
+from api.models.message import Message
 from api.utils.whatsapp_parser import parse_webhook_payload
+from api.utils.whatsapp_sender import send_message
 from services.conversation_service import handle_incoming_message
 
 logger = logging.getLogger(__name__)
@@ -56,12 +60,40 @@ def whatsapp_webhook(request):
                     logger.info(f"Company found: {company.name}")
 
                     # Handle incoming message
-                    message = handle_incoming_message(
+                    user_message = handle_incoming_message(
                         company=company,
                         from_number=parsed["from_number"],
                         message_body=parsed["message_body"],
                     )
-                    logger.info(f"Message handled successfully: {message.pk}")
+                    logger.info(f"Message handled successfully: {user_message.pk}")
+
+                    # Send response back with same text
+                    response_text = parsed["message_body"]
+                    success = send_message(
+                        phone_number_id=parsed["phone_number_id"],
+                        to_number=parsed["from_number"],
+                        text=response_text,
+                    )
+
+                    if success:
+                        # Save assistant message to database
+                        assistant_message = Message.objects.create(
+                            conversation=user_message.conversation,
+                            role=MessageRole.ASSISTANT,
+                            content=response_text,
+                        )
+
+                        # Update conversation metadata
+                        conversation = user_message.conversation
+                        conversation.last_message_at = timezone.now()
+                        conversation.total_messages += 1
+                        conversation.save(
+                            update_fields=["last_message_at", "total_messages"]
+                        )
+
+                        logger.info(
+                            f"Assistant message sent and saved: {assistant_message.pk}"
+                        )
 
                 except Company.DoesNotExist:
                     logger.error(
