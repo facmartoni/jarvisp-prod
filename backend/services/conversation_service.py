@@ -117,3 +117,40 @@ def get_conversation_history(conversation: Conversation, limit: int = 20) -> lis
     ).order_by('-created_at')[:limit]
 
     return list(reversed(messages))
+
+
+def save_assistant_message(
+    conversation: Conversation,
+    content: str,
+    tokens_used: int = 0
+) -> Message:
+    """
+    Save assistant message to conversation.
+
+    Args:
+        conversation: Conversation to add message to
+        content: Message content
+        tokens_used: Number of tokens used (default 0)
+
+    Returns:
+        Message: Created message object
+    """
+    message = Message.objects.create(
+        conversation=conversation,
+        role=MessageRole.ASSISTANT,
+        content=content,
+        tokens_used=tokens_used,
+    )
+
+    # Update conversation metadata
+    conversation.last_message_at = timezone.now()
+    conversation.total_messages += 1
+    conversation.save(update_fields=["last_message_at", "total_messages"])
+
+    logger.info(
+        f"Assistant message saved - ID: {message.pk}, "
+        f"Conversation: {conversation.pk}, "
+        f"Tokens: {tokens_used}"
+    )
+
+    return message
