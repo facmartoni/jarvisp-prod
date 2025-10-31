@@ -165,7 +165,9 @@ GRAPHENE = {
 ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY', '')
 
 # WhatsApp settings
+WHATSAPP_ACCESS_TOKEN = os.getenv('WHATSAPP_ACCESS_TOKEN', '')
 WHATSAPP_VERIFY_TOKEN = os.getenv('WHATSAPP_VERIFY_TOKEN', '')
+WHATSAPP_API_URL = os.getenv('WHATSAPP_API_URL', 'https://graph.facebook.com/v18.0')
 
 # Logging settings
 LOGGING = {
