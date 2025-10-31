@@ -1,6 +1,7 @@
 from .agent_handoff import AgentHandoffAdmin
 from .billing_event import BillingEventAdmin
 from .company import CompanyAdmin
+from .company_config import CompanyConfigAdmin
 from .conversation import ConversationAdmin
 from .customer import CustomerAdmin
 from .feedback import FeedbackAdmin
@@ -14,6 +15,7 @@ __all__ = [
     "AgentHandoffAdmin",
     "BillingEventAdmin",
     "CompanyAdmin",
+    "CompanyConfigAdmin",
     "ConversationAdmin",
     "CustomerAdmin",
     "FeedbackAdmin",

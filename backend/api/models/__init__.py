@@ -1,6 +1,7 @@
 from .agent_handoff import AgentHandoff
 from .billing_event import BillingEvent
 from .company import Company
+from .company_config import CompanyConfig
 from .conversation import Conversation
 from .customer import Customer
 from .feedback import Feedback
@@ -14,6 +15,7 @@ __all__ = [
     "AgentHandoff",
     "BillingEvent",
     "Company",
+    "CompanyConfig",
     "Conversation",
     "Customer",
     "Feedback",
