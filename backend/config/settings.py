@@ -169,6 +169,9 @@ WHATSAPP_ACCESS_TOKEN = os.getenv('WHATSAPP_ACCESS_TOKEN', '')
 WHATSAPP_VERIFY_TOKEN = os.getenv('WHATSAPP_VERIFY_TOKEN', '')
 WHATSAPP_API_URL = os.getenv('WHATSAPP_API_URL', 'https://graph.facebook.com/v18.0')
 
+# Gemini AI settings
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
+
 # Logging settings
 LOGGING = {
     'version': 1,
