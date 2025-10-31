@@ -100,3 +100,20 @@ def handle_incoming_message(
 
         return message
 
+
+def get_conversation_history(conversation: Conversation, limit: int = 20) -> list[Message]:
+    """
+    Get conversation message history.
+
+    Args:
+        conversation: The conversation to retrieve messages from
+        limit: Maximum number of messages to return (default 20)
+
+    Returns:
+        list[Message]: List of Message objects ordered by created_at
+    """
+    messages = Message.objects.filter(
+        conversation=conversation
+    ).order_by('-created_at')[:limit]
+
+    return list(reversed(messages))

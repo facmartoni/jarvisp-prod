@@ -3,8 +3,12 @@ LLM Service for Gemini integration.
 """
 
 import os
+from typing import Any
 
 from google import genai
+
+from api.constants import MessageRole
+from api.models.message import Message
 
 
 def get_gemini_model():
@@ -29,3 +33,35 @@ def get_gemini_model():
 
     return client
 
+
+def format_messages_for_gemini(messages: list[Message]) -> list[dict[str, Any]]:
+    """
+    Convert Message objects to Gemini API format.
+
+    Args:
+        messages: List of Message objects
+
+    Returns:
+        list[dict]: Messages formatted for Gemini API [{"role": "user/model", "parts": [text]}]
+    """
+    formatted = []
+
+    for message in messages:
+        # Skip system messages
+        if message.role == MessageRole.SYSTEM:
+            continue
+
+        # Map roles to Gemini format
+        if message.role == MessageRole.USER:
+            gemini_role = "user"
+        elif message.role in (MessageRole.ASSISTANT, MessageRole.AGENT):
+            gemini_role = "model"
+        else:
+            continue
+
+        formatted.append({
+            "role": gemini_role,
+            "parts": [message.content]
+        })
+
+    return formatted
