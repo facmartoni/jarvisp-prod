@@ -37,12 +37,18 @@ if DEBUG:
     ALLOWED_HOSTS.append('.ngrok.app')
     ALLOWED_HOSTS.append('.ngrok-free.app')
 
+# Allow Fly.io domains
+ALLOWED_HOSTS.append('.fly.dev')
+
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if os.getenv('CSRF_TRUSTED_ORIGINS') else []
 
 # Allow ngrok CSRF for webhooks in testing
 if DEBUG:
     CSRF_TRUSTED_ORIGINS.append('https://*.ngrok.app')
     CSRF_TRUSTED_ORIGINS.append('https://*.ngrok-free.app')
+
+# Allow Fly.io CSRF
+CSRF_TRUSTED_ORIGINS.append('https://*.fly.dev')
 
 
 # Application definition
