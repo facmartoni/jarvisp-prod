@@ -16,11 +16,10 @@ const preview: Preview = {
     },
 
     backgrounds: {
-      default: 'dark',
-      values: [
-        { name: 'dark', value: '#000000' },
-        { name: 'light', value: '#ffffff' },
-      ],
+      options: {
+        dark: { name: 'dark', value: '#000000' },
+        light: { name: 'light', value: '#ffffff' }
+      }
     },
 
     a11y: {
@@ -30,6 +29,7 @@ const preview: Preview = {
       test: 'todo'
     }
   },
+
   decorators: [
     (Story, context) => {
       // Don't apply wrapper in Docs view
@@ -56,6 +56,12 @@ const preview: Preview = {
       }, React.createElement(Story));
     },
   ],
+
+  initialGlobals: {
+    backgrounds: {
+      value: 'dark'
+    }
+  }
 };
 
 export default preview;
