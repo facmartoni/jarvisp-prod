@@ -42,6 +42,55 @@ def format_argentina_whatsapp_number(phone: str) -> str:
     return phone
 
 
+def send_typing_indicator(phone_number_id: str, to_number: str, message_id: str) -> bool:
+    """
+    Mark message as read and show typing indicator.
+
+    Args:
+        phone_number_id: WhatsApp Business Phone Number ID
+        to_number: Recipient's phone number (any format, will be converted for Argentina)
+        message_id: WhatsApp message ID to mark as read
+
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    # Convert Argentina numbers to WhatsApp format
+    formatted_number = format_argentina_whatsapp_number(to_number)
+    
+    url = f"{settings.WHATSAPP_API_URL}/{phone_number_id}/messages"
+
+    headers = {
+        "Authorization": f"Bearer {settings.WHATSAPP_ACCESS_TOKEN}",
+        "Content-Type": "application/json",
+    }
+
+    payload = {
+        "messaging_product": "whatsapp",
+        "status": "read",
+        "message_id": message_id,
+        "typing_indicator": {
+            "type": "text"
+        }
+    }
+
+    try:
+        response = requests.post(url, headers=headers, json=payload, timeout=10)
+        response.raise_for_status()
+        logger.info(f"Message marked as read - To: {formatted_number}")
+        return True
+
+    except requests.exceptions.HTTPError as e:
+        logger.error(
+            f"HTTP error marking message as read - Status: {e.response.status_code}, "
+            f"Response: {e.response.text}"
+        )
+        return False
+
+    except Exception as e:
+        logger.warning(f"Failed to mark message as read: {e}")
+        return False
+
+
 def send_message(phone_number_id: str, to_number: str, text: str) -> bool:
     """
     Send a WhatsApp text message via the Cloud API.

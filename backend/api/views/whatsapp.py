@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from api.models.company import Company
 from api.utils.whatsapp_parser import parse_webhook_payload
-from api.utils.whatsapp_sender import send_message
+from api.utils.whatsapp_sender import send_message, send_typing_indicator
 from services.conversation_service import (
     get_conversation_history,
     handle_incoming_message,
@@ -113,6 +113,13 @@ def whatsapp_webhook(request):
                         company=company,
                         from_number=parsed["from_number"],
                         message_body=parsed["message_body"],
+                    )
+
+                    # Send typing indicator (mark as read)
+                    send_typing_indicator(
+                        phone_number_id=parsed["phone_number_id"],
+                        to_number=parsed["from_number"],
+                        message_id=parsed["message_id"],
                     )
 
                     # Generate AI response
