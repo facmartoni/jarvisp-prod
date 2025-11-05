@@ -40,6 +40,9 @@ if DEBUG:
 # Allow Fly.io domains
 ALLOWED_HOSTS.append('.fly.dev')
 
+# Allow macch.ai domains
+ALLOWED_HOSTS.append('.macch.ai')
+
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if os.getenv('CSRF_TRUSTED_ORIGINS') else []
 
 # Allow ngrok CSRF for webhooks in testing
@@ -49,6 +52,9 @@ if DEBUG:
 
 # Allow Fly.io CSRF
 CSRF_TRUSTED_ORIGINS.append('https://*.fly.dev')
+
+# Allow macch.ai CSRF
+CSRF_TRUSTED_ORIGINS.append('https://*.macch.ai')
 
 
 # Application definition
