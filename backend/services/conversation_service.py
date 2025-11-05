@@ -76,9 +76,6 @@ def handle_incoming_message(
                 customer=customer,
                 is_active=True,
             )
-            logger.info(f"Created new conversation: {conversation.pk}")
-        else:
-            logger.info(f"Using existing conversation: {conversation.pk}")
 
         # Create message
         message = Message.objects.create(
@@ -91,12 +88,6 @@ def handle_incoming_message(
         conversation.last_message_at = timezone.now()
         conversation.total_messages += 1
         conversation.save(update_fields=["last_message_at", "total_messages"])
-
-        logger.info(
-            f"Message created - ID: {message.pk}, "
-            f"Conversation: {conversation.pk}, "
-            f"Customer: {customer.phone}"
-        )
 
         return message
 
@@ -146,11 +137,5 @@ def save_assistant_message(
     conversation.last_message_at = timezone.now()
     conversation.total_messages += 1
     conversation.save(update_fields=["last_message_at", "total_messages"])
-
-    logger.info(
-        f"Assistant message saved - ID: {message.pk}, "
-        f"Conversation: {conversation.pk}, "
-        f"Tokens: {tokens_used}"
-    )
 
     return message

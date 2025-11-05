@@ -49,16 +49,57 @@ def whatsapp_webhook(request):
         # Handle incoming webhook data
         try:
             data = json.loads(request.body)
-            logger.info(f"WhatsApp webhook received: {json.dumps(data, indent=2)}")
+            
+            # Log concise message for text messages
+            try:
+                entry = data.get("entry", [{}])[0]
+                changes = entry.get("changes", [{}])[0]
+                value = changes.get("value", {})
+                messages = value.get("messages", [])
+                statuses = value.get("statuses", [])
+                
+                if messages:
+                    message = messages[0]
+                    message_type = message.get("type")
+                    
+                    if message_type == "text":
+                        from_number = message.get("from")
+                        text_body = message.get("text", {}).get("body")
+                        metadata = value.get("metadata", {})
+                        phone_number_id = metadata.get("phone_number_id")
+                        to_number = metadata.get("display_phone_number")
+                        
+                        # Try to get company name
+                        company_identifier = "Unknown"
+                        if phone_number_id:
+                            try:
+                                company = Company.objects.get(whatsapp_phone_id=phone_number_id)
+                                company_identifier = company.name
+                            except Company.DoesNotExist:
+                                company_identifier = f"To: {to_number}" if to_number else "Unknown"
+                        
+                        logger.info(f"WhatsApp message - Company: {company_identifier}, From: {from_number}, Body: {text_body}")
+                    else:
+                        # Non-text message, show full payload
+                        logger.info(f"WhatsApp webhook received: {json.dumps(data, indent=2)}")
+                elif statuses:
+                    # Status update - only log errors
+                    status = statuses[0]
+                    status_value = status.get("status")
+                    if status_value == "failed":
+                        recipient = status.get("recipient_id")
+                        logger.error(f"WhatsApp message failed - To: {recipient}, Status: {json.dumps(status, indent=2)}")
+                    # Suppress sent/delivered/read status updates
+                else:
+                    # No messages or statuses, show full payload
+                    logger.info(f"WhatsApp webhook received: {json.dumps(data, indent=2)}")
+            except (KeyError, IndexError, TypeError):
+                # If parsing fails, show full payload
+                logger.info(f"WhatsApp webhook received: {json.dumps(data, indent=2)}")
 
             # Parse the webhook payload
             parsed = parse_webhook_payload(data)
             if parsed:
-                logger.info(
-                    f"Parsed message - From: {parsed['from_number']}, "
-                    f"Body: {parsed['message_body']}, "
-                    f"ID: {parsed['message_id']}"
-                )
 
                 # Query Company by whatsapp_phone_id
                 try:
@@ -66,7 +107,6 @@ def whatsapp_webhook(request):
                         whatsapp_phone_id=parsed["phone_number_id"]
                     )
                     request.company = company
-                    logger.info(f"Company found: {company.name}")
 
                     # Handle incoming message
                     user_message = handle_incoming_message(
@@ -74,7 +114,6 @@ def whatsapp_webhook(request):
                         from_number=parsed["from_number"],
                         message_body=parsed["message_body"],
                     )
-                    logger.info(f"Message handled successfully: {user_message.pk}")
 
                     # Generate AI response
                     try:

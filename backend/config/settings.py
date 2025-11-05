@@ -240,5 +240,20 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
+        'google.genai': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        'httpx': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        'httpcore': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
     },
 }

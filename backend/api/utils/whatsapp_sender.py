@@ -56,7 +56,6 @@ def send_message(phone_number_id: str, to_number: str, text: str) -> bool:
     """
     # Convert Argentina numbers to WhatsApp format
     formatted_number = format_argentina_whatsapp_number(to_number)
-    logger.info(f"Sending WhatsApp message - Original: {to_number}, Formatted: {formatted_number}")
 
     url = f"{settings.WHATSAPP_API_URL}/{phone_number_id}/messages"
 
@@ -80,11 +79,7 @@ def send_message(phone_number_id: str, to_number: str, text: str) -> bool:
         response = requests.post(url, headers=headers, json=payload, timeout=10)
         response.raise_for_status()
 
-        data = response.json()
-        logger.info(
-            f"Message sent successfully - To: {formatted_number}, "
-            f"Message ID: {data.get('messages', [{}])[0].get('id', 'unknown')}"
-        )
+        logger.info(f"Message sent successfully - To: {formatted_number}")
         return True
 
     except requests.exceptions.HTTPError as e:
