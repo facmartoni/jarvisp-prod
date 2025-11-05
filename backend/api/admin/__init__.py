@@ -8,6 +8,7 @@ from .feedback import FeedbackAdmin
 from .ispcube_integration import ISPCubeIntegrationAdmin
 from .knowledge_base import KnowledgeBaseAdmin
 from .message import MessageAdmin
+from .sector import SectorAdmin
 from .template import TemplateAdmin
 from .tool_call_log import ToolCallLogAdmin
 
@@ -22,6 +23,7 @@ __all__ = [
     "ISPCubeIntegrationAdmin",
     "KnowledgeBaseAdmin",
     "MessageAdmin",
+    "SectorAdmin",
     "TemplateAdmin",
     "ToolCallLogAdmin",
 ]
