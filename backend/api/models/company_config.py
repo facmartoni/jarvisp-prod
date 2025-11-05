@@ -33,6 +33,17 @@ class CompanyConfig(models.Model):
         return f"{self.company.name} - Config"
 
     def get_system_prompt(self) -> str:
-        """Get system prompt with company name interpolated."""
-        return self.system_prompt.replace("{company_name}", self.company.name)
+        """
+        Get system prompt with company name interpolated.
+        If company has a sector with system_prompt, prepends sector prompt.
+        """
+        # Start with company-specific prompt
+        company_prompt = self.system_prompt.replace("{company_name}", self.company.name)
+        
+        # Prepend sector prompt if available
+        if self.company.sector and self.company.sector.system_prompt:
+            sector_prompt = self.company.sector.system_prompt
+            return f"{sector_prompt}\n\n{company_prompt}"
+        
+        return company_prompt
 

@@ -8,6 +8,7 @@ from .feedback import Feedback
 from .ispcube_integration import ISPCubeIntegration
 from .knowledge_base import KnowledgeBase
 from .message import Message
+from .sector import Sector
 from .template import Template
 from .tool_call_log import ToolCallLog
 
@@ -22,6 +23,7 @@ __all__ = [
     "ISPCubeIntegration",
     "KnowledgeBase",
     "Message",
+    "Sector",
     "Template",
     "ToolCallLog",
 ]
