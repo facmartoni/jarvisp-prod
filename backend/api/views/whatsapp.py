@@ -18,6 +18,13 @@ from services.llm_service import format_messages_for_gemini, generate_response
 logger = logging.getLogger(__name__)
 
 
+def whatsapp_health(request):
+    """
+    Health check endpoint for WhatsApp webhook service.
+    """
+    return JsonResponse({"status": "healthy"}, status=200)
+
+
 @csrf_exempt
 def whatsapp_webhook(request):
     """
