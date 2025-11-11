@@ -10,7 +10,7 @@ function Header() {
           <div className="w-12 h-12 flex items-center justify-center scale-[0.2] origin-center mt-[-10px]">
             <Robot />
           </div>
-          <span className="text-2xl font-bold text-white tracking-tight">JarvISP</span>
+          <span className="text-2xl font-bold text-white tracking-tight">Macch</span>
         </div>
 
         {/* Navigation menu */}
@@ -28,9 +28,14 @@ function Header() {
 
         {/* CTA Button */}
         <div className="flex items-center">
-          <button className="bg-white text-black text-[0.95rem] font-semibold px-6 py-2.5 rounded-full hover:bg-gray-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,255,255,0.2)] active:translate-y-0 transition-all duration-200">
+          <a 
+            href="https://calendly.com/facundogarciamartoni/ia"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white text-black text-[0.95rem] font-semibold px-6 py-2.5 rounded-full hover:bg-gray-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,255,255,0.2)] active:translate-y-0 transition-all duration-200"
+          >
             Agendá una Demo
-          </button>
+          </a>
         </div>
       </div>
     </header>

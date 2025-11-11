@@ -23,15 +23,17 @@ function Hero() {
 
       <Orb state="listening" size={128} />
 
-      <button 
+      <a 
         ref={buttonRef}
-        type="button" 
-        className={`bg-blue-500 text-white text-[0.95rem] font-semibold px-6 py-2.5 rounded-full hover:bg-blue-600 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(59,130,246,0.4)] active:translate-y-0 transition-all duration-[1.5s] ease-out ${
+        href="https://calendly.com/facundogarciamartoni/ia"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`bg-white text-black text-[0.95rem] font-semibold px-6 py-2.5 rounded-full hover:bg-gray-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,255,255,0.2)] active:translate-y-0 transition-all duration-[1.5s] ease-out ${
           buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
         }`}
       >
-        Probá uno de nuestros agentes
-      </button>
+        Agendá una Demo
+      </a>
     </section>
   )
 }

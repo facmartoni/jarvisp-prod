@@ -49,7 +49,7 @@ function Solution() {
         }`}
       >
         <h2 className="text-white text-5xl font-bold text-center">
-          Por eso creamos a JarvISP.
+          Por eso creamos a Macch.
         </h2>
       </div>
 
