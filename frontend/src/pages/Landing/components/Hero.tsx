@@ -3,7 +3,7 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 function Hero() {
   const { ref: textRef, isVisible: textVisible } = useScrollAnimation<HTMLDivElement>()
-  const { ref: buttonRef, isVisible: buttonVisible } = useScrollAnimation<HTMLButtonElement>()
+  const { ref: buttonRef, isVisible: buttonVisible } = useScrollAnimation<HTMLAnchorElement>()
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pt-20 gap-8 px-8">
@@ -13,10 +13,10 @@ function Hero() {
           textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
         }`}
       >
-        <h1 className="text-white text-6xl font-bold text-center">
+        <h1 className="text-white text-5xl md:text-6xl font-bold text-center">
           Atención al Cliente con <span className="text-blue-500"><br />Inteligencia Artificial</span> para tu ISP
         </h1>
-        <h6 className="text-gray-400 text-lg text-center">
+        <h6 className="text-gray-400 text-md md:text-lg text-center">
           Te ofrecemos <span className="text-white font-bold">Agentes</span> integrados a tu sistema de gestión, <br />capaces de contestar <strong className="text-white font-bold">llamadas y mensajes de WhatsApp.</strong>
         </h6>
       </div>

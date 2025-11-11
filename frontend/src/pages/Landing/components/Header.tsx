@@ -32,7 +32,7 @@ function Header() {
             href="https://calendly.com/facundogarciamartoni/ia"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white text-black text-[0.95rem] font-semibold px-6 py-2.5 rounded-full hover:bg-gray-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,255,255,0.2)] active:translate-y-0 transition-all duration-200"
+            className="bg-white text-black text-[0.8rem] md:text-[0.95rem] font-semibold px-4 md:px-6 py-2 md:py-2.5 rounded-full hover:bg-gray-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,255,255,0.2)] active:translate-y-0 transition-all duration-200"
           >
             Agendá una Demo
           </a>

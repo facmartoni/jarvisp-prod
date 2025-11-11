@@ -48,7 +48,7 @@ function Solution() {
           headlineVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
         }`}
       >
-        <h2 className="text-white text-5xl font-bold text-center">
+        <h2 className="text-white text-4xl md:text-5xl font-bold text-center">
           Por eso creamos a Macch.
         </h2>
       </div>

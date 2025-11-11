@@ -14,10 +14,10 @@ function Problem() {
           firstVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
         }`}
       >
-        <h2 className="text-white text-4xl font-bold text-center">
+        <h2 className="text-white text-3xl md:text-4xl font-bold text-center">
           No te quedés atrás.
         </h2>
-        <p className="text-gray-400 text-xl text-center leading-relaxed">
+        <p className="text-gray-400 text-sm md:text-xl text-center leading-relaxed">
           La era de la Inteligencia Artificial ya comenzó, y nosotros tenemos una hipótesis: <strong>la única manera de competir con las grandes telcos es brindando un servicio exclusivo y personalizado</strong> (¿no es acaso eso lo que siempre distinguió al PyME ISP?).
         </p>
       </div>
@@ -30,10 +30,10 @@ function Problem() {
             secondVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
-          <h2 className="text-white text-4xl font-bold">
+          <h2 className="text-white text-3xl md:text-4xl font-bold">
             Pero ojo: entendemos que no es escalable
           </h2>
-          <p className="text-gray-400 text-xl leading-relaxed">
+          <p className="text-gray-400 text-sm md:text-xl leading-relaxed">
             Atender a los primeros clientes sin intermediarios puede ser fácil, pero una vez superado cierto número de conexiones, resulta inevitable delegar. ¿El problema? Cada empleado extra es una inversión de tiempo, capacitación y gestión enormes, y al chatbot genérico, doña Rosa no lo entiende y termina siendo un número más en nuestro CHURN.
           </p>
         </div>
