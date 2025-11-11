@@ -17,6 +17,10 @@ export default defineConfig({
       '@': path.resolve(dirname, './src')
     }
   },
+  server: {
+    host: true,
+    allowedHosts: ['.ngrok.app', '.ngrok-free.app']
+  },
   optimizeDeps: {
     exclude: ['@apollo/client']
   },
