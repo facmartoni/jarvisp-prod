@@ -1,6 +1,0 @@
-{
-  "approvals": {
-    "@tailwindcss/oxide": true,
-    "esbuild": true
-  }
-}

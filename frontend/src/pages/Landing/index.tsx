@@ -2,6 +2,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import Problem from './components/Problem'
 import Solution from './components/Solution'
+import Footer from './components/Footer'
 
 function Landing() {
   return (
@@ -10,6 +11,7 @@ function Landing() {
       <Hero />
       <Problem />
       <Solution />
+      <Footer />
     </div>
   )
 }
