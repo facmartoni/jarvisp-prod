@@ -43,6 +43,10 @@ ALLOWED_HOSTS.append('.fly.dev')
 # Allow macch.ai domains
 ALLOWED_HOSTS.append('.macch.ai')
 
+# Allow jarvisp.com domains
+ALLOWED_HOSTS.append('jarvisp.com')
+ALLOWED_HOSTS.append('.jarvisp.com')
+
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if os.getenv('CSRF_TRUSTED_ORIGINS') else []
 
 # Allow ngrok CSRF for webhooks in testing
@@ -55,6 +59,10 @@ CSRF_TRUSTED_ORIGINS.append('https://*.fly.dev')
 
 # Allow macch.ai CSRF
 CSRF_TRUSTED_ORIGINS.append('https://*.macch.ai')
+
+# Allow jarvisp.com CSRF
+CSRF_TRUSTED_ORIGINS.append('https://jarvisp.com')
+CSRF_TRUSTED_ORIGINS.append('https://*.jarvisp.com')
 
 
 # Application definition
