@@ -48,6 +48,9 @@ function Footer() {
               <Link to="/terminos" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white transition-colors duration-200">
                 Términos de Servicio
               </Link>
+              <Link to="/eliminacion-datos" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white transition-colors duration-200">
+                Eliminación de Datos
+              </Link>
             </nav>
           </div>
         </div>
