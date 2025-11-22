@@ -3,3 +3,5 @@ alwaysApply: true
 ---
 
 - You will always apply the DRY principle. Separation of concerns is mandatory for this project.
+- Do not create .md files for everything: just for the essential things that will serve as context for agent driven developmen.
+- Do not put production sensitive data in files to be committed.
